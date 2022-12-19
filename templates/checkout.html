@@ -112,7 +112,7 @@
         //2) user Information if user s not loogged in
         //3) shipping address if item in order needs shipping
 
-        
+
         var userFormData = {
             'name':null,
             'email':null,
@@ -137,6 +137,16 @@
             userFormData.name = form.name.value
             userFormData.email = form.email.value
         }
+
+        var url = '/process_order'
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json',
+                'X-CSRFToken':csrftoken,  
+            },
+            body: JSON.stringify({'form': userFormData, 'shipping': shippingInfo})
+        })
     }
 </script>
 
