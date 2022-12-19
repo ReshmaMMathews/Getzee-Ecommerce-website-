@@ -92,7 +92,7 @@
     form.addEventListener('submit', function(e){
         e.preventDefault()
         console.log('Form submitted.....')
-        document.getElementById('form-button').classList.add('hidden');   {% comment %} hiding submit button {% endcomment %}
+        document.getElementById('form-button').classList.add('hidden');   //hiding submit button
         document.getElementById('payment-info').classList.remove('hidden');
     })
 
@@ -105,6 +105,14 @@
     function submitFormData(){
         console.log('Payment button clicked')
 
+
+        //preparing the data before sending it to the backend
+        //when the payment button is submitted we want to send 3 things to the backend
+        //1) cart total
+        //2) user Information if user s not loogged in
+        //3) shipping address if item in order needs shipping
+
+        
         var userFormData = {
             'name':null,
             'email':null,
