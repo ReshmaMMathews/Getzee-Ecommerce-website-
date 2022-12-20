@@ -152,6 +152,10 @@
         .then((data) => {
             console.log('Success:', data);
             alert('Transaction completed');
+            //clear cart when our payment button/form is successfully submitted
+            cart = {}
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+
             window.location.href = "{% url 'store' %}"
         })
     }
