@@ -35,10 +35,19 @@ def cart(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        try:
+            cart = json.loads(request.COOKIES['cart'])
+        except:
+            cart = {}
+        
+        print('Cart:', cart)
         #creating empty cart for non-logged users
         items = []
         order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
+
+        for i in cart:
+            cartItems += cart[i]["quantity"]
 
     context = {'items':items, 'order':order, 'cartItems': cartItems}
     return render(request, 'cart.html', context)
@@ -54,10 +63,11 @@ def checkout(request):
         items = order.orderitem_set.all()
         cartItems = order.get_cart_items
     else:
+        
         items = []
         order = {'get_cart_total':0, 'get_cart_items':0, 'shipping':False}
         cartItems = order['get_cart_items']
-    
+
     context = {'items':items, 'order':order, 'cartItems': cartItems}
     return render(request, 'checkout.html', context)
 
