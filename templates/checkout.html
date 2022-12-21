@@ -103,7 +103,7 @@
 
 
     function submitFormData(){
-        console.log('Payment button clicked')
+        console.log("Payment button clicked")
 
 
         //preparing the data before sending it to the backend
@@ -114,16 +114,16 @@
 
 
         var userFormData = {
-            'name':null,
-            'email':null,
-            'total':total,
+            "name":null,
+            "email":null,
+            "total":total,
         }
 
         var shippingInfo = {
-            'address':null,
-            'city':null,
-            'state':null,
-            'zipcode':null,    
+            "address":null,
+            "city":null,
+            "state":null,
+            "zipcode":null,    
         }
 
         if (shipping != 'False'){
@@ -139,23 +139,23 @@
         }
 
         var url = '/process_order'
-        fetch(url, {
-            method: 'POST',
+        fetch(url,{
+            method: "POST",
             headers: {
-                'Content-Type':'application/json',
-                'X-CSRFToken':csrftoken,  
+                "content-Type":"application/json",
+                "X-CSRFToken":csrftoken,  
             },
-            body: JSON.stringify({'form': userFormData, 'shipping': shippingInfo})
+            body: JSON.stringify({"form": userFormData, "shipping": shippingInfo}),
         })
 
         .then((response) => response.json())
-        .then((data) => {
-            console.log('Success:', data);
-            alert('Transaction completed');
-            //clear cart when our payment button/form is successfully submitted
-            cart = {}
-            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
 
+        .then((data) => {
+            console.log("Success:", data);
+            alert("Transaction completed");
+            
+            cart = {}
+            document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/"
             window.location.href = "{% url 'store' %}"
         })
     }
