@@ -69,24 +69,21 @@
 </div>
 
 <!-- Include the PayPal JavaScript SDK -->
-<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AU6qW2oaSAPPWW41kYPIOMSwoArEIIXLOZONprM0AERGyz83_ejeLIg3bf-2dvdIo8W3XM0FMlxcfzsK&currency=USD"></script>
 
 <script>
+
+    var total = '{{order.get_cart_total}}'
     // Render the PayPal button into #paypal-button-container
     paypal.Buttons({
 
-        style:{
-            color: 'blue',
-            shape: 'rect',
-
-        },
 
         // Set up the transaction
         createOrder: function(data, actions) {
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: '88.44'
+                        value: parseFloat(total).toFixed(2)
                     }
                 }]
             });
@@ -95,7 +92,7 @@
         // Finalize the transaction
         onApprove: function(data, actions) {
             return actions.order.capture().then(function(orderData) {
-                // Successful capture! For demo purposes:
+                // Show a success message to the buyer:
                 console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
                 var transaction = orderData.purchase_units[0].payments.captures[0];
                 alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
